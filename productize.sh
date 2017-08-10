@@ -26,11 +26,22 @@ sed -i '/<\/project>/{
     d 
 }' pom.xml
 
+#update version to SSHO 
+./set-version.sh 7.1.2.CR3
+
 #rename groupId in POMs
 find . -type f -name "*pom.xml*" -exec sed -i 's@<groupId>org.keycloak.bom</groupId>@<groupId>com.redhat.bom.rh-sso</groupId>@g' {} +
 find . -type f -name "*pom.xml*" -exec sed -i 's@<groupId>org.keycloak.quickstarts</groupId>@<groupId>com.redhat.rh-sso</groupId>@g' {} +
+find . -type f -name "*pom.xml*" -exec sed -i 's@<groupId>org.keycloak.bom</groupId>@<groupId>com.redhat.bom.rh-sso</groupId>@g' {} +
+
+find . -type f -name "*pom.xml*" -exec sed -i 's@<artifactId>keycloak-quickstart-parent</artifactId>@<artifactId>rh-sso-quickstart-parent</artifactId>@g' {} +
+find . -type f -name "*pom.xml*" -exec sed -i 's@<name>Keycloak Quickstart@<name>Red Hat SSO Quickstart@g' {} +
+
+
 
 git checkout -b prod_staging
+git checkout action-token-authenticator/pom.xml
+git checkout action-token-required-action/pom.xml 
 git rm -r action-token-authenticator
 git rm -r action-token-required-action
 git status
