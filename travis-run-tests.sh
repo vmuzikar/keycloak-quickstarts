@@ -25,7 +25,10 @@ if [ $1 == "group4" ]; then
   cd ../app-springboot
   mvn -B -s ../maven-settings.xml clean test
 fi
-if [ $1 == "group5" ]; then
+if [ $1 == "group5" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then
   ./productize.sh
+fi  
+if [ $1 == "group5" ] && [ $TRAVIS_PULL_REQUEST != "false" ]; then
+  exit 0
 fi  
 
