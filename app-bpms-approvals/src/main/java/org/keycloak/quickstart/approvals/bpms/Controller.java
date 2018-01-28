@@ -18,6 +18,7 @@
 package org.keycloak.quickstart.approvals.bpms;
 
 import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.representations.idm.ApprovalRequestBPMSRepresentation;
 import org.kie.api.task.model.Status;
 import org.kie.server.api.marshalling.MarshallingFormat;
 import org.kie.server.api.model.instance.TaskInstance;
@@ -33,8 +34,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Vaclav Muzikar <vmuzikar@redhat.com>
@@ -108,6 +111,10 @@ public class Controller {
     private UserTaskServicesClient getUserTaskServices() {
         KieServicesConfiguration conf = KieServicesFactory.newRestConfiguration(KIE_URL, KIE_USER, KIE_PASSWORD);
 
+        Set<Class<?>> extraClasses = new HashSet<Class<?>>();
+        extraClasses.add(ApprovalRequestBPMSRepresentation.class);
+
+        conf.addExtraClasses(extraClasses);
         conf.setMarshallingFormat(MarshallingFormat.JSON);
         KieServicesClient kieServicesClient = KieServicesFactory.newKieServicesClient(conf);
 

@@ -36,13 +36,18 @@
             <c:when test = "${tasks.size() > 0}">
                 <table>
                     <tr>
+                        <th>Time</th>
+                        <th>Requester</th>
                         <th>Requested action</th>
                         <th>Detailed description</th>
                     </tr>
                     <c:forEach items="${controller.tasks}" var="task">
+                        <c:set var ="req" value = "${task.inputData.get('request')}"/>
                         <tr>
-                            <td>Realm: <i>${task.inputData.get("realm")}</i> / ${task.inputData.get("name")}</td>
-                            <td><pre>${task.inputData.get("desc")}</pre></td>
+                            <td>${req.time}</td>
+                            <td>${req.userRealm} / ${req.username}</td>
+                            <td>Realm: <i>${req.realm}</i> / ${req.actionName}</td>
+                            <td><pre>${req.description}</pre></td>
                             <td>
                                 <a class="button approve" href="?approve=${task.id}">Approve</a>
                                 <a class="button reject" href="?reject=${task.id}">Reject</a>

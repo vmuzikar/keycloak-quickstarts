@@ -35,6 +35,18 @@
         </license>
     </licenses>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>kie-bom</artifactId>
+                <version>${version.kie}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.keycloak</groupId>
@@ -61,12 +73,10 @@
         <dependency>
             <groupId>org.kie.server</groupId>
             <artifactId>kie-server-client</artifactId>
-            <version>${version.kie}</version>
         </dependency>
         <dependency>
             <groupId>org.kie.server</groupId>
             <artifactId>kie-server-api</artifactId>
-            <version>${version.kie}</version>
         </dependency>
     </dependencies>
 
