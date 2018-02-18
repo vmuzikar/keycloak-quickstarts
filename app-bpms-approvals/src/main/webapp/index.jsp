@@ -45,7 +45,14 @@
                         <c:set var ="req" value = "${task.inputData.get('request')}"/>
                         <tr>
                             <td>${req.time}</td>
-                            <td>${req.userRealm} / ${req.username}</td>
+                            <c:choose>
+                                <c:when test = "${req.username != null}">
+                                    <td>${req.userRealm} / ${req.username}</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>N/A</td>
+                                </c:otherwise>
+                            </c:choose>
                             <td>Realm: <i>${req.realm}</i> / ${req.actionName}</td>
                             <td><pre>${req.description}</pre></td>
                             <td>
