@@ -1,6 +1,5 @@
 **/config/keycloak.json
 **/config/keycloak-saml.xml
-**/WEB-INF/keycloak.json
 *.orig
 
 # Intellij

@@ -1,0 +1,10 @@
+{
+  "realm": "master",
+  "auth-server-url": "http://localhost:8081/auth",
+  "ssl-required": "external",
+  "resource": "bpms",
+  "credentials": {
+    "secret": "secret"
+  },
+  "confidential-port": 0
+}
