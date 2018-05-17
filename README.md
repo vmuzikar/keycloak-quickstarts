@@ -16,5 +16,6 @@ This is a helper Java EE app that handles BPMS user tasks for Keycloak Approvals
 1. Download [WildFly server](http://wildfly.org/downloads/).
 1. [Install Keycloak Adapter on WildFly](https://www.keycloak.org/docs/latest/securing_apps/index.html#jboss-eap-wildfly-adapter).
 1. Run Wildfly with `$WILDFLY_ROOT/bin/standalone.[sh|bat]`.
-1. Build and deploy this project with `mvn wildfly:deploy`.
-1. Import `bpm-realm.json` with the neccesary configuration to Keycloak - [HOW TO](https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm)
+1. Build and deploy this project with `mvn wildfly:deploy -Djboss.socket.binding.port-offset=2`.
+1. Import `bpms-realm.json` with the neccesary configuration to Keycloak - [HOW TO](https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm).
+1. Go to http://localhost:8082/bpms-approvals and login as test:pwd.
