@@ -33,7 +33,7 @@
 
     <properties>
         <version.wildfly>11.0.0.Final</version.wildfly>
-        <version.keycloak>3.4.2.Final-SNAPSHOT</version.keycloak>
+        <version.keycloak>3.4.2-VMUZIKAR-THESIS</version.keycloak>
         <version.kie>6.5.0.Final</version.kie>
     </properties>
 
