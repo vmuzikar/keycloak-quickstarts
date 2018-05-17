@@ -37,6 +37,10 @@
         <version.kie>6.5.0.Final</version.kie>
     </properties>
 
+    <build>
+        <finalName>bpms-approvals</finalName>
+    </build>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
