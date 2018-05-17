@@ -39,6 +39,17 @@
 
     <build>
         <finalName>bpms-approvals</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <port>9992</port>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencyManagement>
