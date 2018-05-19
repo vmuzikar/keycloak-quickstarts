@@ -1,10 +1,8 @@
 {
-  "realm": "master",
+  "realm": "bpms-realm",
   "auth-server-url": "http://localhost:8081/auth",
   "ssl-required": "external",
-  "resource": "bpms",
-  "credentials": {
-    "secret": "secret"
-  },
+  "resource": "bpms-client",
+  "public-client": true,
   "confidential-port": 0
 }
