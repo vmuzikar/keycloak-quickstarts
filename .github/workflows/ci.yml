@@ -23,7 +23,7 @@ jobs:
           client_payload: |
             status: in_progress
             workflow_url: ${{ env.WORKFLOW_URL }}
-            checkrun_url: ${{ github.event.client_payload.check_run_url }}
+            check_run_url: ${{ github.event.client_payload.check_run_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
 
@@ -87,6 +87,6 @@ jobs:
             status: completed
             conclusion: ${{ steps.tests_result.outputs.value }}
             workflow_url: ${{ env.WORKFLOW_URL }}
-            checkrun_url: ${{ github.event.client_payload.check_run_url }}
+            check_run_url: ${{ github.event.client_payload.check_run_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
