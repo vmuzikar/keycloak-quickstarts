@@ -2,7 +2,7 @@ name: Quickstarts tests
 
 on:
   repository_dispatch:
-    types: [ kc_push ]
+    types: [ keycloak_pr ]
   push:
   pull_request:
 
@@ -82,7 +82,7 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/${{ github.event.client_payload.repo }}/dispatches
-          event_type: qs_update
+          event_type: quickstarts_test_status_updated
           client_payload: |
             status: completed
             conclusion: ${{ steps.tests_result.outputs.value }}
