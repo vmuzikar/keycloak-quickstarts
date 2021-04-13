@@ -20,7 +20,10 @@ jobs:
         with:
           route: POST /repos/${{ github.event.client_payload.repo }}/dispatches
           event_type: qs_update
-          client_payload: '{"status":"in_progress", "workflow_url":"${{ env.WORKFLOW_URL }}", "checkrun_url":"${{ github.event.client_payload.check_run_url }}"}'
+          client_payload: |
+            status: in_progress
+            workflow_url: ${{ env.WORKFLOW_URL }}
+            checkrun_url: ${{ github.event.client_payload.check_run_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
 
@@ -80,6 +83,10 @@ jobs:
         with:
           route: POST /repos/${{ github.event.client_payload.repo }}/dispatches
           event_type: qs_update
-          client_payload: '{"status":"completed", "conclusion":"${{ steps.tests_result.outputs.value }}", "workflow_url":"${{ env.WORKFLOW_URL }}", "checkrun_url":"${{ github.event.client_payload.check_run_url }}"}'
+          client_payload: |
+            status: completed
+            conclusion: ${{ steps.tests_result.outputs.value }}
+            workflow_url: ${{ env.WORKFLOW_URL }}
+            checkrun_url: ${{ github.event.client_payload.check_run_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
