@@ -70,7 +70,7 @@ jobs:
         id: tests_result
         if: ${{ always() }}
         with:
-          cond: ${{ steps.tests.conclusion == "success" }}
+          cond: ${{ steps.tests.conclusion == 'success' }}
           if_true: "success"
           if_false: "failure"
 
