@@ -1,12 +1,29 @@
 name: Quickstarts tests
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  repository_dispatch:
+    types: [ kc_push ]
+  push:
+  pull_request:
+
+env:
+  WORKFLOW_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
 jobs:
   tests:
     name: Quickstarts tests
     runs-on: ubuntu-latest
     steps:
+      - name: Update check run in KC repo with in_progress status
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/${{ github.event.client_payload.repo }}/dispatches
+          event_type: qs_update
+          client_payload: '{"status":"in_progress", "workflow_url":"${{ env.WORKFLOW_URL }}", "checkrun_url":"${{ github.event.client_payload.check_run_url }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
@@ -36,6 +53,7 @@ jobs:
         run: .github/scripts/start-local-server.sh
 
       - name: Run tests
+        id: tests
         run: .github/scripts/run-tests.sh
 
       - name: Archive logs
@@ -47,3 +65,21 @@ jobs:
           path: |
             test-logs
             keycloak.log
+
+      - uses: haya14busa/action-cond@v1
+        id: tests_result
+        if: ${{ always() }}
+        with:
+          cond: ${{ steps.tests.conclusion == "success" }}
+          if_true: "success"
+          if_false: "failure"
+
+      - name: Update check run in KC repo with final conclusion
+        if: ${{ always() && github.event_name == 'repository_dispatch' }}
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/${{ github.event.client_payload.repo }}/dispatches
+          event_type: qs_update
+          client_payload: '{"status":"completed", "conclusion":"${{ steps.tests_result.outputs.value }}", "workflow_url":"${{ env.WORKFLOW_URL }}", "checkrun_url":"${{ github.event.client_payload.check_run_url }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
